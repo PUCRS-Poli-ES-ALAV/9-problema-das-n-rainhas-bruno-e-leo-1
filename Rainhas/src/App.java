@@ -2,62 +2,61 @@ public class App {
     final int N = 7;
     static int flag = 0;
     
-    void printSolution(int board[][])
+    void mostraTabuleiro (int tabuleiro[][])
     {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++)
-                System.out.print(" " + board[i][j]
-                                    + " ");
+                System.out.print(" " + tabuleiro[i][j] + " ");
             System.out.println();
         }
     }
     
-    boolean isSafe(int board[][], int row, int col)
+    boolean ehSeguro(int tabuleiro[][], int linha, int coluna)
     {
         int i, j;
     
-        for (i = 0; i < col; i++)
-            if (board[row][i] == 1)
+        for (i = 0; i < coluna; i++)
+            if (tabuleiro[linha][i] == 1)
                 return false;
     
-        for (i = row, j = col; i >= 0 && j >= 0; i--, j--)
-            if (board[i][j] == 1)
+        for (i = linha, j = coluna; i >= 0 && j >= 0; i--, j--)
+            if (tabuleiro[i][j] == 1)
                 return false;
 
-        for (i = row, j = col; j >= 0 && i < N; i++, j--)
-            if (board[i][j] == 1)
+        for (i = linha, j = coluna; j >= 0 && i < N; i++, j--)
+            if (tabuleiro[i][j] == 1)
                 return false;
     
         return true;
     }
     
-    boolean solveNQUtil(int board[][], int col)
+    boolean resolver(int tabuleiro[][], int coluna)
     {
 
-        if (col >= flag) {
+        if (coluna >= flag) {
             return true;
         }
     
         for (int i = 0; i < N; i++) {
 
-            if (isSafe(board, i, col)) {
+            if (ehSeguro(tabuleiro, i, coluna)) {
 
-                board[i][col] = 1;
+                tabuleiro[i][coluna] = 1;
     
-                if (solveNQUtil(board, col + 1) == true){
+                if (resolver(tabuleiro, coluna + 1) == true){
                     return true;
                 }
                 
-                board[i][col] = 0;
+                tabuleiro[i][coluna] = 0;
             }
         }
     
         return false;
     }
     
-    boolean solveNQ()
+    boolean executar()
     {
-        int board[][] = {   { 0, 0, 0, 0, 0, 0, 0 },
+        int tabuleiro[][] = {   { 0, 0, 0, 0, 0, 0, 0 },
                             { 0, 0, 0, 0, 0, 0, 0 },
                             { 0, 0, 0, 0, 0, 0, 0 },
                             { 0, 0, 0, 0, 0, 0, 0 },
@@ -65,12 +64,12 @@ public class App {
                             { 0, 0, 0, 0, 0, 0, 0 },
                             { 0, 0, 0, 0, 0, 0, 0 }};
     
-        if (solveNQUtil(board, 0) == false) {
+        if (resolver(tabuleiro, 0) == false) {
             System.out.print("Solution does not exist");
             return false;
         }
     
-        printSolution(board);
+        mostraTabuleiro(tabuleiro);
         return true;
     }
 
@@ -78,7 +77,7 @@ public class App {
         App Queen = new App();
         if(n >= 2) {
             flag = n;
-            Queen.solveNQ();
+            Queen.executar();
         } else {
             System.out.println("Numero de rainhas inválido!");
         }
