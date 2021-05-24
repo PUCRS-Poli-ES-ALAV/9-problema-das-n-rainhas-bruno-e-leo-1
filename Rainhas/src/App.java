@@ -83,7 +83,6 @@ public class App {
         }
     }
     
-    // driver program to test above function
     public static void main(String args[])
     {
         //Insira aqui a quantidade de rainhas
