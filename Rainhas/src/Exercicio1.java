@@ -1,17 +1,21 @@
-public class App {
-    final int N = 7;
-    static int flag = 0;
+public class Exercicio1 {
+    static int N = 7;
+
     
-    void mostraTabuleiro (int tabuleiro[][])
+    static void mostraTabuleiro (int tabuleiro[][])
     {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++)
-                System.out.print(" " + tabuleiro[i][j] + " ");
+                if(tabuleiro[i][j] == 0) {
+                    System.out.print(" - ");
+                } else {
+                    System.out.print(" Q ");
+                }
             System.out.println();
         }
     }
     
-    boolean ehSeguro(int tabuleiro[][], int linha, int coluna)
+    static boolean semAtaque(int tabuleiro[][], int linha, int coluna)
     {
         int i, j;
     
@@ -30,16 +34,16 @@ public class App {
         return true;
     }
     
-    boolean resolver(int tabuleiro[][], int coluna)
+    static boolean resolver(int tabuleiro[][], int coluna)
     {
 
-        if (coluna >= flag) {
+        if (coluna >= N) {
             return true;
         }
     
         for (int i = 0; i < N; i++) {
 
-            if (ehSeguro(tabuleiro, i, coluna)) {
+            if (semAtaque(tabuleiro, i, coluna)) {
 
                 tabuleiro[i][coluna] = 1;
     
@@ -53,33 +57,33 @@ public class App {
     
         return false;
     }
-    
-    boolean executar()
+
+    static boolean executar()
     {
-        int tabuleiro[][] = {   { 0, 0, 0, 0, 0, 0, 0 },
-                            { 0, 0, 0, 0, 0, 0, 0 },
-                            { 0, 0, 0, 0, 0, 0, 0 },
-                            { 0, 0, 0, 0, 0, 0, 0 },
-                            { 0, 0, 0, 0, 0, 0, 0 },
-                            { 0, 0, 0, 0, 0, 0, 0 },
-                            { 0, 0, 0, 0, 0, 0, 0 }};
-    
+        int[][] tabuleiro = new int[N][N];
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                tabuleiro[i][j] = 0;
+            }
+        }
+        
         if (resolver(tabuleiro, 0) == false) {
             System.out.print("Solution does not exist");
             return false;
         }
     
         mostraTabuleiro(tabuleiro);
+
         return true;
     }
 
     static void entrada(int n) {
-        App Queen = new App();
-        if(n >= 2) {
-            flag = n;
-            Queen.executar();
+        if(n <= 3) {
+            System.out.println("Não é possivel criar um tabuleiro para o numero digitado numero!");
         } else {
-            System.out.println("Numero de rainhas inválido!");
+            N = n;
+            executar();
         }
     }
     
