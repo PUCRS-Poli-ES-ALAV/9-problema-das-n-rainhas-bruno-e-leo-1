@@ -1,3 +1,6 @@
+
+
+//Primeira Solução 
 public class Exercicio1 {
     static int N = 7;
 
