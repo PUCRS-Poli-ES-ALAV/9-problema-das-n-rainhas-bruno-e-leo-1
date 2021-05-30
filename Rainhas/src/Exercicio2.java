@@ -1,10 +1,8 @@
 import java.util.*;
- 
-class Exercicio2
-{
-    static int instrucoesRainha = 0;
-    static int iteracoesRainha = 0;
+class Exercicio2{
 
+    static int instrucoesRainha = 1;
+    static int iteracoesRainha = 0;
 
     public static int N = 7;
 
